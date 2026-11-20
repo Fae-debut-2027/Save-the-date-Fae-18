@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darlin Fae @ 18 | Save the Date</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-black: #0a0a0b;
+            --burgundy-dark: #26060b;
+            --burgundy-main: #6e1622;
+            --gold-trim: #d4af37;
+            --cream-text: #f6f1ec;
+            --soft-gray: #bfb0a3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--cream-text);
+            font-family: 'Cormorant Garamond', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-image: radial-gradient(circle at top, rgba(110, 22, 34, 0.28), rgba(10, 10, 11, 0.96) 72%);
+            background-attachment: fixed;
+        }
+
+        .card {
+            max-width: 640px;
+            width: 100%;
+            background: linear-gradient(160deg, rgba(38, 6, 11, 0.9), rgba(10, 10, 11, 0.96));
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 14px;
+            padding: 38px 28px;
+            text-align: center;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85), 0 0 22px rgba(110, 22, 34, 0.35);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 9px; left: 9px; right: 9px; bottom: 9px;
+            border: 1px solid rgba(212, 175, 55, 0.18);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .kicker {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            color: var(--gold-trim);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--cream-text);
+            text-shadow: 0 0 12px rgba(110, 22, 34, 0.75);
+            line-height: 1.2;
+        }
+
+        .sub {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--soft-gray);
+            margin-top: 4px;
+            margin-bottom: 22px;
+        }
+
+        .line {
+            width: 85px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-trim), transparent);
+            margin: 18px auto;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            color: var(--soft-gray);
+            margin-bottom: 22px;
+        }
+
+        .info-panel {
+            background: rgba(10, 10, 11, 0.55);
+            border-left: 2px solid var(--burgundy-main);
+            border-right: 2px solid var(--burgundy-main);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 26px;
+        }
+
+        .label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.82rem;
+            letter-spacing: 2px;
+            color: var(--gold-trim);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .value {
+            font-size: 1.22rem;
+            color: var(--cream-text);
+        }
+
+        .subvalue {
+            font-size: 0.98rem;
+            color: var(--soft-gray);
+            margin-top: 2px;
+        }
+
+        .rules {
+            margin-top: 14px;
+            font-style: italic;
+            color: var(--soft-gray);
+            font-size: 1.02rem;
+            line-height: 1.5;
+        }
+
+        .rsvp-button {
+            display: inline-block;
+            padding: 14px 34px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.98rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--cream-text);
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--burgundy-dark), var(--burgundy-main));
+            border: 1px solid var(--gold-trim);
+            border-radius: 30px;
+            transition: all 0.25s ease;
+        }
+
+        .rsvp-button:hover {
+            background: linear-gradient(135deg, var(--burgundy-main), #8f1d2d);
+            box-shadow: 0 0 18px rgba(212, 175, 55, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .audio-btn {
+            position: fixed;
+            bottom: 22px;
+            right: 22px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(38, 6, 11, 0.92);
+            border: 1px solid var(--gold-trim);
+            color: var(--gold-trim);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="kicker">Save The Date</div>
+        <h1>Darlin Fae</h1>
+        <div class="sub">Turns Eighteen</div>
+
+        <div class="line"></div>
+
+        <p class="intro">
+            An evening of gothic romance, elegance, and timeless celebration.
+        </p>
+
+        <div class="info-panel">
+            <div>
+                <span class="label">Date &amp; Time</span>
+                <span class="value">December 18, 2027 | 5:00 PM</span>
+            </div>
+
+            <div class="line" style="width: 45px; margin: 12px auto;"></div>
+
+            <div>
+                <span class="label">Venue</span>
+                <span class="value">Chalie's Restaurant &amp; D'Jocos Resort</span>
+                <div class="subvalue">Muzon, Naic, Cavite</div>
+            </div>
+
+            <div class="rules">
+                <strong>Dress Code:</strong> Deep Burgundy &amp; Black (Gothic Elegance)<br>
+                <span style="font-size: 0.9rem;">Strictly maximum +1 per invite &bull; Ages 13 and above</span>
+            </div>
+        </div>
+
+        <a href="https://forms.gle/g9BE5XhNpbMPETYw7" target="_blank" class="rsvp-button">
+            CONFIRM RSVP
+        </a>
+    </div>
+
+    <audio id="waltz-audio" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=waltz-of-the-flowers-115340.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="audio-btn" id="audio-toggle" title="Play / Pause Music">🎵</button>
+
+    <script>
+        const waltzAudio = document.getElementById('waltz-audio');
+        const audioToggle = document.getElementById('audio-toggle');
+        let playing = false;
+
+        audioToggle.addEventListener('click', () => {
+            if (playing) {
+                waltzAudio.pause();
+                audioToggle.textContent = '🎵';
+            } else {
+                waltzAudio.play();
+                audioToggle.textContent = '⏸️';
+            }
+            playing = !playing;
+        });
+    </script>
+</body>
+</html>
