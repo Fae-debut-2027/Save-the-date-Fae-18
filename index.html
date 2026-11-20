@@ -46,7 +46,6 @@
                 linear-gradient(180deg, #050304 0%, #100508 50%, #040304 100%);
         }
 
-        /* Ambient Gothic Stage Spotlight */
         .stage-backdrop {
             position: fixed;
             inset: 0;
@@ -63,7 +62,6 @@
             mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 85%);
         }
 
-        /* Particle System: Petals + Gold Embers */
         .particles {
             position: fixed;
             inset: 0;
@@ -143,7 +141,6 @@
             }
         }
 
-        /* Royal Crest Accent */
         .crest-wrap {
             display: flex;
             justify-content: center;
@@ -172,7 +169,6 @@
             100% { box-shadow: 0 0 35px rgba(204, 165, 61, 0.5), 0 0 20px rgba(158, 20, 43, 0.6); }
         }
 
-        /* Grand Hero Section */
         .hero {
             text-align: center;
             padding: 10px 10px 32px;
@@ -241,7 +237,6 @@
             text-shadow: 0 0 14px rgba(204, 165, 61, 0.8);
         }
 
-        /* Countdown Grid */
         .countdown-section {
             background: linear-gradient(150deg, rgba(38, 4, 11, 0.85), rgba(10, 7, 9, 0.95));
             border: 1.5px solid rgba(204, 165, 61, 0.45);
@@ -311,7 +306,6 @@
             margin-top: 6px;
         }
 
-        /* Details Cards */
         .details-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -365,7 +359,6 @@
             font-style: italic;
         }
 
-        /* Etiquette / Dress Code Banner */
         .etiquette-panel {
             background: linear-gradient(90deg, rgba(38, 4, 11, 0.78), rgba(102, 15, 30, 0.4), rgba(38, 4, 11, 0.78));
             border-top: 1px solid rgba(204, 165, 61, 0.5);
@@ -408,7 +401,6 @@
             color: var(--champagne);
         }
 
-        /* Shimmering RSVP Button */
         .cta-area {
             text-align: center;
             padding-top: 8px;
@@ -477,7 +469,6 @@
             font-style: italic;
         }
 
-        /* Floating Audio Control */
         .music-pill {
             position: fixed;
             bottom: 24px;
@@ -610,18 +601,12 @@
         </div>
     </main>
 
-    <!-- Dark Gothic Waltz Audio Source -->
-    <audio id="waltz-audio" loop preload="metadata">
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_5174092b77.mp3?filename=gothic-waltz-10515.mp3" type="audio/mpeg">
-    </audio>
-
     <button type="button" class="music-pill" id="audio-toggle" aria-label="Play or pause background waltz music">
         <span id="audio-icon">♪</span>
         <span id="audio-label">Play Dark Waltz</span>
     </button>
 
     <script>
-        // Countdown Timer Target: Dec 18, 2027
         const targetTime = new Date("December 18, 2027 17:00:00").getTime();
         const daysEl = document.getElementById("days");
         const hoursEl = document.getElementById("hours");
@@ -646,14 +631,12 @@
         tickCountdown();
         setInterval(tickCountdown, 1000);
 
-        // Particle Animation Generator: Crimson Petals & Gold Embers
         const particlesContainer = document.getElementById("particles");
         const petalColors = [
             "radial-gradient(circle at 30% 30%, #c41835, #3b030c)",
             "radial-gradient(circle at 30% 30%, #820d20, #1f0106)"
         ];
 
-        // 1. Falling Crimson Petals
         for (let i = 0; i < 22; i++) {
             const petal = document.createElement("span");
             petal.className = "petal";
@@ -667,7 +650,6 @@
             particlesContainer.appendChild(petal);
         }
 
-        // 2. Rising Gold Embers / Dust
         for (let j = 0; j < 14; j++) {
             const ember = document.createElement("span");
             ember.className = "ember";
@@ -680,23 +662,86 @@
             particlesContainer.appendChild(ember);
         }
 
-        // Audio Player Handler
-        const audio = document.getElementById("waltz-audio");
+        // Built-in Dark Waltz Synthesizer (3/4 Waltz in D Minor)
         const toggleBtn = document.getElementById("audio-toggle");
         const audioIcon = document.getElementById("audio-icon");
         const audioLabel = document.getElementById("audio-label");
+
+        let audioCtx = null;
+        let waltzTimer = null;
         let isPlaying = false;
+        let beatStep = 0;
+
+        // Measures in D minor / Bb major / Gm / A7 (3 beats per measure)
+        const waltzProgression = [
+            { bass: 146.83, chord: [293.66, 349.23, 440.00], lead: 587.33 }, // Dm
+            { bass: 146.83, chord: [293.66, 349.23, 440.00], lead: 523.25 },
+            { bass: 116.54, chord: [233.08, 293.66, 349.23], lead: 466.16 }, // Bb
+            { bass: 116.54, chord: [233.08, 293.66, 349.23], lead: 440.00 },
+            { bass: 98.00,  chord: [196.00, 233.08, 293.66], lead: 392.00 }, // Gm
+            { bass: 110.00, chord: [220.00, 277.18, 329.63], lead: 440.00 }  // A
+        ];
+
+        function playTone(freq, duration, volume, type = "sine", delay = 0) {
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime + delay;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, now);
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(volume, now + 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            osc.stop(now + duration + 0.02);
+        }
+
+        function triggerWaltzBeat() {
+            const bar = waltzProgression[Math.floor(beatStep / 3) % waltzProgression.length];
+            const beatInBar = beatStep % 3;
+
+            if (beatInBar === 0) {
+                // Beat 1: deep low bass + melody note
+                playTone(bar.bass, 1.35, 0.08, "triangle", 0);
+                playTone(bar.lead, 1.25, 0.045, "sine", 0);
+            } else {
+                // Beats 2 & 3: soft waltz accompaniment
+                bar.chord.forEach((note) => {
+                    playTone(note, 0.55, 0.018, "sine", 0);
+                });
+            }
+
+            beatStep++;
+        }
 
         toggleBtn.addEventListener("click", async () => {
             try {
+                if (!audioCtx) {
+                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                    audioCtx = new AudioContextClass();
+                }
+
+                if (audioCtx.state === "suspended") {
+                    await audioCtx.resume();
+                }
+
                 if (!isPlaying) {
-                    await audio.play();
                     isPlaying = true;
+                    beatStep = 0;
                     audioIcon.textContent = "❚❚";
                     audioLabel.textContent = "Pause Dark Waltz";
+                    triggerWaltzBeat();
+                    waltzTimer = setInterval(triggerWaltzBeat, 520);
                 } else {
-                    audio.pause();
                     isPlaying = false;
+                    clearInterval(waltzTimer);
+                    waltzTimer = null;
                     audioIcon.textContent = "♪";
                     audioLabel.textContent = "Play Dark Waltz";
                 }
